@@ -13,7 +13,7 @@ export default function SideLayout({ children }: { children: ReactNode }) {
         <Provider store={store}>
                 <div className="flex w-screen h-screen bg-slate-100">
                     <Navbar />
-                    <main>
+                    <main className='w-full'>
                         <SearchBar/>
                         {children}
                     </main>

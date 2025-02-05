@@ -25,19 +25,15 @@ function navbar() {
         <ul className="flex flex-col space-y-6 space-x-6 tracking-widest pr-4">
           <h1 className="mt-16 ml-5">Hospital</h1>
           <li className='flex justify-between bg-slate-100 rounded-l-full text-black px-4 w-full py-3'>
-            <a href="#">Dashboard</a>
+            <Link href='/doctors'>Dashboard</Link>
             <ChevronRight />
           </li>
           <li className='flex justify-between'>
-            <a href="#">Appointments</a>
+            <Link href='/doctors/Appointments'>Appointments</Link>
             <ChevronRight />
           </li>
           <li className='flex justify-between'>
             <a href="#">Patients</a>
-            <ChevronRight />
-          </li>
-          <li className='flex justify-between'>
-            <a href="#">Room Allotments</a>
             <ChevronRight />
           </li>
           <li className='flex justify-between'>
