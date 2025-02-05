@@ -17,7 +17,7 @@ function navbar() {
   
 
   return (
-    <div className="h-full w-1/6 flex bg-[#1A43BF] rounded-r-lg">
+    <div className="h-screen overflow-x-hidden sticky top-0 overflow-y-auto w-1/6 flex bg-[#1A43BF] rounded-r-lg">
       <div className="bg-[#123499] w-2/12 h-full rounded-r-xl"></div>
       <div className="w-full text-white mt-8">
         <h2 className="text-center">LOGO</h2>
