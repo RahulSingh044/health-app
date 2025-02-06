@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store'
+import { ClipLoader } from 'react-spinners'
 
 const Dashboard = () => {
   const router = useRouter();
@@ -25,7 +26,7 @@ const Dashboard = () => {
     }
   }, [role, router]);
 
-  return (<p>Redirecting...</p>);
+  return (<div className='w-screen h-screen flex justify-center items-center'><ClipLoader /></div>);
 };
 
 export default Dashboard;

@@ -34,9 +34,9 @@ export default function SignupForm() {
     try {
       const request = await axios.post("api/auth/Signup", data)
       toast.success("Signup successful")
-      router.push("/")
+      router.push("/dashboard")
     } catch (error:any) {
-      console.error(error.message)
+      console.log(error.message)
     }
   }
 
