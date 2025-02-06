@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export async function POST() {
+export async function GET() {
   try {
     const response = NextResponse.json(
       {
@@ -10,6 +10,7 @@ export async function POST() {
       { status: 200 }
     );
     response.cookies.set("token", "", { httpOnly: true });
+    return response;
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

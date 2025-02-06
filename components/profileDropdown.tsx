@@ -8,6 +8,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { ChevronDown } from "lucide-react"
+import Link from "next/link"
 
 function profileDropdown() {
     return (
@@ -23,7 +24,10 @@ function profileDropdown() {
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>Profile</DropdownMenuItem>
+                <Link href='/logout'>
                 <DropdownMenuItem>Logout</DropdownMenuItem>
+                </Link>
+                
             </DropdownMenuContent>
         </DropdownMenu>
     )
