@@ -9,32 +9,46 @@ import { User, CircleCheck } from 'lucide-react'
 import axios from 'axios';
 const Home: NextPage = () => {
 
-  const user = async () => {
+  interface usertype {
+    name: string
+  }
+
+  const [user, setUser] = React.useState<usertype>()
+  const [qualifications, setQualifications] = React.useState([])
+
+  const currentUser = async () => {
     try {
       const response = await axios.get('api/auth/User');
-      console.log(response.data);
+      setQualifications(response.data.data.doctorDetails.qualifications)
+      setUser(response.data.data);
     } catch (error) {
       console.error(error);
     }
   }
 
   React.useEffect( () => {
-    user();
-  })
+    currentUser();
+  },[])
 
   return (
     <SideLayout>
-      <div className=' w-full h-screen flex flex-col gap-5 p-16'>
+      <div className=' w-full flex flex-col gap-5 p-10'>
 
         <div className='flex gap-12 '>
 
           {/* Welcome Box */}
           <div className='bg-white rounded-lg w-[32rem] h-56 flex justify-around items-center px-10'>
             <div className='w-28 h-28 rounded-full bg-slate-200'></div>
-            <div className=''>
+            <div>
               <h2 className='text-2xl font-extrabold pb-2 border-b-2 border-black'>Good morning,</h2>
-              <h3 className='text-lg font-bold mt-2'>Dr. Haider</h3>
-              <p>Cardiologist, MBBS, MD</p>
+              <h3 className='text-lg font-bold mt-2'>Dr. {user?.name}</h3>
+              {qualifications && qualifications.map((q,key) => (
+                <div className='flex flex-col'>
+                  
+                    <div className='flex' key={key}>{q}</div>
+                  
+                </div>
+              ) )}
             </div>
           </div>
 

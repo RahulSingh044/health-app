@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema({
   // Common fields for all users
   role: {
     type: String,
-    enum: ['patient', 'doctor', 'admin'],
+    enum: ['patient', 'doctor'],
     required: true,
   },
   name: {
@@ -58,9 +58,6 @@ const userSchema = new mongoose.Schema({
   doctorDetails: {
     specialty: {
       type: String,
-      // required: function () {
-      //   return this.role === 'doctor';
-      // },
     },
     qualifications: [String],
     availableSlots: [
@@ -81,16 +78,30 @@ const userSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Hospital',
     },
-  },
+  }
+});
 
-  // Fields specific to admins
-  adminDetails: {
-    hospitalId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Hospital',
-    },
-    permissions: [String], // e.g., ["manage_users", "manage_appointments"]
-  },
+// Virtual field to calculate age for patients based on dateOfBirth
+userSchema.virtual('age').get(function () {
+  if (this.role === 'patient' && this.patientDetails.dateOfBirth) {
+    const today = new Date();
+    const birthDate = new Date(this.patientDetails.dateOfBirth);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const month = today.getMonth();
+    const day = today.getDate();
+
+    // Adjust if the birthday hasn't occurred yet this year
+    if (month < birthDate.getMonth() || (month === birthDate.getMonth() && day < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  }
+  return null; // For non-patient roles, age will be null
+});
+
+// You should set the virtual to be included when converting to JSON
+userSchema.set('toJSON', {
+  virtuals: true,
 });
 
 // Update the `updatedAt` field before saving
