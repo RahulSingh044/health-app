@@ -27,24 +27,24 @@ export async function POST(request: NextRequest) {
       password: hashedPassword,
       phoneNumber: mobileNo,
     });
-
     await user.save();
+
     const res = NextResponse.json(
       { message: "User created", user: user },
       { status: 200 }
     );
 
-    const token = Token({
-      _id: user.id,
-      email: user.email,
-      role: user.role,
-    });
+    // const token = Token({
+    //   _id: user.id,
+    //   email: user.email,
+    //   role: user.role,
+    // });
 
-    res.cookies.set("token", token, {
-      httpOnly: true,
-      maxAge: 60 * 60 * 24,
-      path: "/",
-    });
+    // res.cookies.set("token", token, {
+    //   httpOnly: true,
+    //   maxAge: 60 * 60 * 24,
+    //   path: "/",
+    // });
 
     return res
 
