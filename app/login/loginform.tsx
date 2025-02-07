@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 import { useDispatch } from "react-redux"
 import { login } from "../store/slices/authsSlice"
+import { setUser } from "../store/slices/userSlice"
 
 export default function LoginForm() {
 
@@ -28,8 +29,10 @@ export default function LoginForm() {
         try {
             console.log(data)
             const response = await axios.post("api/auth/Login", data)
+            console.log(response.data.user)
             if (response.data.user.role) {
                 dispatch(login({ role: response.data.user.role })); // Dispatch the role
+                dispatch(setUser(response.data.user.name))
                 router.push('/dashboard')
               } else {
                 console.error('Role not found in response');

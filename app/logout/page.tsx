@@ -2,6 +2,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { logout } from '../store/slices/authsSlice';
+import { clearUser} from "../store/slices/userSlice"
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
@@ -14,6 +15,7 @@ export default function page() {
     try {
       dispatch(logout());
       await axios.get('api/auth/logout')
+      dispatch(clearUser()); 
       router.push('/');
     } catch (error:any) {
       console.error(error.message)
