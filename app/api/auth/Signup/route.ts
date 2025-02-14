@@ -26,6 +26,8 @@ export async function POST(request: NextRequest) {
       email,
       password: hashedPassword,
       phoneNumber: mobileNo,
+      dateOfBirth:'',
+      gender:'',
     });
     await user.save();
 

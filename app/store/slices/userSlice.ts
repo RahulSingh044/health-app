@@ -1,33 +1,68 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-// Define the User type
-export interface User {
-  name: string;
+interface MedicalHistory {
+  condition: string;
+  diagnosisDate: Date;
+  treatment: string;
 }
 
-// Define the initial state of the user
-interface UserState {
-  user: User | null;
+interface PatientDetails {
+  medicalHistory: MedicalHistory[];
+  allergies: string[];
+  currentMedications: string[];
 }
 
-// Initial state
+// interface AvailableSlot {
+//   startTime: Date;
+//   endTime: Date;
+//   isBooked: boolean;
+// }
+
+interface DoctorDetails {
+  specialty: string;
+  qualifications: string[];
+  availableSlots: string[];
+  maxPatientsPerDay: number;
+}
+
+export interface UserState {
+  name?: string;
+  email: string;
+  gender: 'Male' | 'Female';
+  password: string;
+  dateOfBirth: Date | string;
+  phoneNumber: string;
+  patientDetails?: PatientDetails;
+  doctorDetails?: DoctorDetails;
+}
+
 const initialState: UserState = {
-  user: null,
+  name: '',
+  email: '',
+  password: '',
+  phoneNumber: '',
+  gender: 'Male',
+  dateOfBirth: '',
+  patientDetails: undefined,
+  doctorDetails: undefined,
 };
+
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<User>) => {
-      state.user = action.payload; // Set the user
-    },
-    clearUser: (state) => {
-      state.user = null; // Clear the user
-    },
-  },
+    setUserData: (state, action: PayloadAction<UserState>) => { 
+      const {  name, email, phoneNumber,dateOfBirth,patientDetails, doctorDetails } = action.payload;
+      state.name = name;
+      state.email = email;
+      state.phoneNumber = phoneNumber;
+      state.dateOfBirth = dateOfBirth instanceof Date ? dateOfBirth.toISOString() : dateOfBirth;
+      state.patientDetails = patientDetails;
+      state.doctorDetails = doctorDetails;
+    }
+  }
 });
 
-export const { setUser, clearUser } = userSlice.actions;
-
+export const { setUserData } = userSlice.actions;
 export default userSlice.reducer;

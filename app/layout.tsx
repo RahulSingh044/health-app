@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import StoreProvider from "./StoreProvider";
+import { EdgeStoreProvider } from "@/lib/edgestore";
 
 
 const geistSans = Geist({
@@ -31,7 +32,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
         <StoreProvider>
-          {children}
+          <EdgeStoreProvider>
+            {children}
+          </EdgeStoreProvider>
           <Toaster />
         </StoreProvider>
       </body>

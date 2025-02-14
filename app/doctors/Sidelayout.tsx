@@ -17,12 +17,12 @@ export default function SideLayout({ children }: { children: ReactNode }) {
                 <main className='w-full p-2'>
                     <div className='w-full flex justify-between border-b-2 pb-4'>
                         <div>
-                        <SearchBar />
+                            <SearchBar />
                         </div>
                         <div className='flex gap-4 justify-center items-center px-8'>
-                        <Bell />
-                        <span className='h-10 border-r-2'> </span>
-                        <Profile />
+                            <Bell />
+                            <span className='h-10 border-r-2'> </span>
+                            <Profile />
                         </div>
                     </div>
                     {children}

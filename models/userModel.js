@@ -7,6 +7,10 @@ const userSchema = new mongoose.Schema({
     enum: ['patient', 'doctor'],
     required: true,
   },
+  gender: {
+    type: String,
+    default: ""
+  },
   name: {
     type: String,
     required: true,
@@ -19,6 +23,10 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+  },
+  dateOfBirth: {
+    type: Date,
+    default: null
   },
   phoneNumber: {
     type: String,
@@ -36,13 +44,6 @@ const userSchema = new mongoose.Schema({
 
   // Fields specific to patients
   patientDetails: {
-    dateOfBirth: {
-      type: Date,
-    },
-    gender: {
-      type: String,
-      enum: ['male', 'female', 'other'],
-    },
     medicalHistory: [
       {
         condition: String,
@@ -58,21 +59,23 @@ const userSchema = new mongoose.Schema({
   doctorDetails: {
     specialty: {
       type: String,
+      default: ""
     },
     qualifications: [String],
     availableSlots: [
-      {
-        startTime: Date,
-        endTime: Date,
-        isBooked: {
-          type: Boolean,
-          default: false,
-        },
-      },
+      // {
+      //   startTime: Date,
+      //   endTime: Date,
+      //   isBooked: {
+      //     type: Boolean,
+      //     default: false,
+      //   },
+      // },
+      String
     ],
     maxPatientsPerDay: {
       type: Number,
-      default: 20,
+      default: ""
     },
     hospitalId: {
       type: mongoose.Schema.Types.ObjectId,
