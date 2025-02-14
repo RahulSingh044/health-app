@@ -15,7 +15,6 @@ function navbar() {
   }
 
   React.useEffect(() => {
-    console.log(pathName)
     currentPath()
   }, [pathName])
 
