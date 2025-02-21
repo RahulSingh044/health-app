@@ -32,8 +32,6 @@ export async function POST(request: NextRequest) {
       role: user.role
     })
 
-    console.log(token);
-
     const res = NextResponse.json(
       { message: "Logged in successfully", user: user, token:token },
       { status: 200 }

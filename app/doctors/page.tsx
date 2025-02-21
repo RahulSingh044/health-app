@@ -1,6 +1,5 @@
 'use client';
 import type { NextPage } from 'next';
-import { useRef } from 'react';
 import SideLayout from './Sidelayout';
 import React from 'react';
 import SearchBar from '@/components/searchBar'
@@ -27,6 +26,7 @@ const Home: NextPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const userData = useSelector((state: RootState) => state.user);
+  const [greetings, setGreetings] = React.useState('');
 
  const currentUser = async () => {
   try {
@@ -39,9 +39,25 @@ const Home: NextPage = () => {
   }
  }
 
+ const getGreetings = () => {
+  const currentDate = new Date()
+  const hours = currentDate.getHours()
+  if (hours >= 6 && hours < 12) {
+    return 'Good Morning'
+  } else if (hours >= 12 && hours < 18) {
+    return 'Good Afternoon'
+  } else {
+    return 'Good Evening'
+  }
+ }
+
  React.useEffect(() => {
   currentUser();
  },[dispatch])
+
+ React.useEffect(() => {
+  setGreetings(getGreetings());
+ },[])
 
   return (
     <SideLayout>
@@ -87,7 +103,7 @@ const Home: NextPage = () => {
 
             </div>
             <div>
-              <h2 className='text-2xl font-extrabold pb-2 border-b-2 border-black'>Good morning,</h2>
+              <h2 className='text-2xl font-extrabold pb-2 border-b-2 border-black'>{greetings},</h2>
               <h3 className='text-lg font-bold mt-2'>Dr. {userData.name}</h3>
               <div className='flex gap-3'>
               {userData.doctorDetails?.qualifications && userData.doctorDetails.qualifications?.map((q,key) => (

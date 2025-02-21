@@ -1,7 +1,11 @@
 import React from 'react'
 
+import Layouts from './Layouts'
+
 export default function page() {
   return (
-    <div>patient page</div>
+    <Layouts>
+      Patient
+    </Layouts>
   )
 }

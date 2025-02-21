@@ -8,6 +8,7 @@ const persistConfig = {
   key: 'root',
   storage, // Uses localStorage to persist data
 };
+
 const persistedUserReducer = persistReducer(persistConfig, userReducer);
 
 export const store = configureStore({

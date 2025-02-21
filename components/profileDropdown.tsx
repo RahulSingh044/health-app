@@ -16,6 +16,12 @@ import { RootState } from '@/app/store/store'
 function profileDropdown() {
 
     const user = useSelector((state: RootState) => state.user);
+    console.log(user)
+    const isDoctor = () => {
+        if (user.role === 'doctor') 
+            return true
+        return false
+    }
 
     return (
         <DropdownMenu>
@@ -25,7 +31,7 @@ function profileDropdown() {
                         <AvatarImage src="https://github.com/shadcn.png" />
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
-                    <span className='font-bold text-xl'>Dr. {user.name}</span>
+                    {isDoctor() ? <span className='font-bold text-xl'>Dr. {user.name}</span> : <span className='font-bold text-xl'>{user.name}</span>}
                     <ChevronDown />
                 </div>
             </DropdownMenuTrigger>

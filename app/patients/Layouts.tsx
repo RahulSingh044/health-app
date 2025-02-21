@@ -1,24 +1,24 @@
 'use client';
-import React, { ReactNode } from 'react';
+import React, { ReactNode } from 'react'
 import { Provider } from 'react-redux';
 import { store } from '../store/store'
-import Navbar from '@/components/navbar'
+import PatientNav from '@/components/patientNav';
 import SearchBar from '@/components/searchBar';
 import Profile from '@/components/profileDropdown';
 import { Bell } from 'lucide-react'
 import ProtectedRoute from '@/components/protectedRoute';
 
-export default function SideLayout({ children }: { children: ReactNode }) {
 
+export default function Layouts({ children }: { children: ReactNode }) {
     return (
-        <Provider store={store}>
-            <ProtectedRoute requiredRole='doctor'>
+        // <ProtectedRoute requiredRole='patient'>
+            <Provider store={store}>
                 <div className="flex w-screen bg-slate-100">
-                    <Navbar />
+                    <PatientNav />
                     <main className='w-full p-2'>
                         <div className='w-full flex justify-between border-b-2 pb-4'>
                             <div>
-                                <SearchBar />
+                                {/* <SearchBar /> */}
                             </div>
                             <div className='flex gap-4 justify-center items-center px-8'>
                                 <Bell />
@@ -29,7 +29,7 @@ export default function SideLayout({ children }: { children: ReactNode }) {
                         {children}
                     </main>
                 </div>
-            </ProtectedRoute>
-        </Provider>
+            </Provider>
+        // </ProtectedRoute>
     )
 }

@@ -32,7 +32,7 @@ function Profile() {
     const [isEditing, setisEditing] = React.useState(false)
     const user = useSelector((state: RootState) => state.user);
     const [gender, setGender] = React.useState(user.gender)
-    const [maxPatients, setMaxPatients] = React.useState(user.doctorDetails?.availableSlots)
+    const [availSlots, setAvailSlots] = React.useState(user.doctorDetails?.availableSlots)
 
     const dispatch = useDispatch()
 
@@ -203,9 +203,9 @@ function Profile() {
                             {isEditing ? (
                                 <input className='w-full bg-slate-100 outline-none px-4 py-2 rounded-lg' type="text" placeholder={String(user.doctorDetails?.availableSlots)} {...register('doctorDetails.availableSlots')} />
                             ) : (
-                                <div className='flex gap-2'>
-                                    {maxPatients?.map((p, Key) => {
-                                        return <Badge className='flex' key={Key} variant="outline">{p}</Badge>
+                                <div className='flex gap-3'>
+                                    {availSlots?.map((p, Key) => {
+                                        return <Badge key={Key} variant="outline">{p}</Badge>
                                     })}
                                 </div>
                             )}

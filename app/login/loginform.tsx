@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 import { useDispatch } from "react-redux"
 import { login } from "../store/slices/authsSlice"
-import { setUser } from "../store/slices/userSlice"
+import { setUserData } from "../store/slices/userSlice"
 
 export default function LoginForm() {
 
@@ -27,12 +27,14 @@ export default function LoginForm() {
 
     const onsubmit = async (data:LoginForm) => {
         try {
-            console.log(data)
             const response = await axios.post("api/auth/Login", data)
-            console.log(response.data.user)
-            if (response.data.user.role) {
-                dispatch(login({ role: response.data.user.role })); // Dispatch the role
-                dispatch(setUser(response.data.user.name))
+            const role = response.data.user.role
+            const user = response.data.user
+            console.log("login",role,user)
+            if (response.data.user) {
+                dispatch(login({ role: role}));
+                dispatch(setUserData(user))
+                toast.success("Logged in successfully")
                 router.push('/dashboard')
               } else {
                 console.error('Role not found in response');
@@ -45,34 +47,6 @@ export default function LoginForm() {
 
     return (
         <form onSubmit={handleSubmit(onsubmit)} className="space-y-6">
-            <div>
-                <div className="mt-1 flex gap-10">
-                    <div className="flex items-center">
-                        <input
-                            id="patient"
-                            type="radio"
-                            value="patient"
-                            {...register("role")}
-                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
-                        />
-                        <label htmlFor="patient" className="ms-2 text-sm font-medium text-slate-800">
-                            Patient
-                        </label>
-                    </div>
-                    <div className="flex items-center">
-                        <input
-                            id="doctor"
-                            type="radio"
-                            value="doctor"
-                            {...register("role")}
-                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
-                        />
-                        <label htmlFor="doctor" className="ms-2 text-sm font-medium text-slate-800">
-                            Doctor
-                        </label>
-                    </div>
-                </div>
-            </div>
 
             <div>
                 <label htmlFor="email" className="block text-lg font-medium text-gray-700 pb-4">

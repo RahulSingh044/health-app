@@ -2,9 +2,11 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { logout } from '../store/slices/authsSlice';
-import { clearUser} from "../store/slices/userSlice"
+import { clearUserData} from "../store/slices/userSlice"
+import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { ClipLoader } from 'react-spinners'
 
 export default function page() {
 
@@ -15,8 +17,9 @@ export default function page() {
     try {
       dispatch(logout());
       await axios.get('api/auth/logout')
-      dispatch(clearUser()); 
+      dispatch(clearUserData()); 
       router.push('/');
+      toast.success("Logged out successfully")
     } catch (error:any) {
       console.error(error.message)
     }
@@ -27,8 +30,8 @@ export default function page() {
   },[])
 
   return (
-    <div>
-
+    <div className='w-screen h-screen flex justify-center items-center'>
+      <ClipLoader />
     </div>
   )
 }
